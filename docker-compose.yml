@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  app:
+    container_name: fakerelic_app
+    build: .
+    command: go run cmd/main.go
+    volumes:
+      - .:/opt/fakeralic
+    
+  test:
+    container_name: fakerelic_test
+    image: fakeralic_app
+    command: go test ./...
+    volumes:
+      - .:/opt/fakeralic
