@@ -2,6 +2,7 @@ package main
 
 import (
 	"fakeralic/pkg/config"
+	"fakeralic/pkg/engine"
 	"os"
 
 	joonix "github.com/joonix/log"
@@ -24,4 +25,8 @@ func init() {
 func main() {
 	logrus.WithField("Environment", c.Environment).Info("Started Function")
 	logrus.WithField("EnvExample", c.EnvExemple).Info("Example Environment Variable")
+
+	if err := engine.Execute(); err != nil {
+		logrus.WithError(err).Error("error on execute engine")
+	}
 }
