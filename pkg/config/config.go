@@ -6,8 +6,9 @@ import (
 
 // Config keeps global configs
 type Config struct {
-	Environment string
-	EnvExemple  string
+	Environment        string
+	Delay              int
+	MonitoringQuantity int
 }
 
 var serverConfig *Config
@@ -25,8 +26,9 @@ func New() *Config {
 	// If not running on stating nor production, fallback to local configs
 	if environment != "staging" && environment != "production" {
 		serverConfig = &Config{
-			Environment: "development",
-			EnvExemple:  "Example of Environment Variable",
+			Environment:        "development",
+			Delay:              5,
+			MonitoringQuantity: 5,
 		}
 		return serverConfig
 	}
