@@ -3,6 +3,7 @@ package main
 import (
 	"fakeralic/pkg/config"
 	"fakeralic/pkg/engine"
+	"fmt"
 	"os"
 
 	joonix "github.com/joonix/log"
@@ -23,10 +24,46 @@ func init() {
 }
 
 func main() {
-	logrus.WithField("Environment", c.Environment).Info("Started Function")
-	logrus.WithField("EnvExample", c.EnvExemple).Info("Example Environment Variable")
+	for {
+		menu()
+
+		switch getOption() {
+		case 1:
+			startMonitoring()
+		case 2:
+			showLogs()
+		case 0:
+			fmt.Println("Exiting ...")
+			os.Exit(0)
+		default:
+			fmt.Println("Unknown command")
+			os.Exit(-1)
+		}
+	}
+}
+
+func menu() {
+	fmt.Println("1 - Start monitoring")
+	fmt.Println("2 - Show Logs")
+	fmt.Println("0 - Exit")
+}
+
+func getOption() int {
+	var option int
+
+	fmt.Scan(&option)
+
+	return option
+}
+
+func startMonitoring() {
+	logrus.Info("Monitoring ...")
 
 	if err := engine.Execute(); err != nil {
 		logrus.WithError(err).Error("error on execute engine")
 	}
+}
+
+func showLogs() {
+	logrus.Info("Show Logs")
 }
