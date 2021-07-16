@@ -1,5 +1,7 @@
 package interfaces
 
+import "fakeralic/pkg/engine/models"
+
 type Handler interface {
-	Execute() (Handler, error)
+	Execute(m *models.Message) (Handler, error)
 }
