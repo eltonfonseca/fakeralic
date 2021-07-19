@@ -30,8 +30,9 @@ func (rf *ReadFileHandler) Execute(m *models.Message) (interfaces.Handler, error
 		row = strings.TrimSpace(row)
 
 		host := models.Host{
-			Name:   row,
-			Status: "",
+			Name:       row,
+			Online:     false,
+			StatusCode: "",
 		}
 
 		m.Hosts = append(m.Hosts, host)

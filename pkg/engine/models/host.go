@@ -1,6 +1,7 @@
 package models
 
 type Host struct {
-	Name   string
-	Status string
+	Name       string
+	Online     bool
+	StatusCode string
 }
