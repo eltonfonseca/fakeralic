@@ -29,7 +29,13 @@ func (rf *ReadFileHandler) Execute(m *models.Message) (interfaces.Handler, error
 		row, err := reader.ReadString('\n')
 		row = strings.TrimSpace(row)
 
-		m.Hosts = append(m.Hosts, row)
+		host := models.Host{
+			Name:       row,
+			Online:     false,
+			StatusCode: 0,
+		}
+
+		m.Hosts = append(m.Hosts, host)
 
 		if err == io.EOF {
 			break

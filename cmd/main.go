@@ -3,8 +3,10 @@ package main
 import (
 	"fakeralic/pkg/config"
 	"fakeralic/pkg/engine"
+	"fakeralic/pkg/engine/models"
 	"fmt"
 	"os"
+	"time"
 
 	joonix "github.com/joonix/log"
 	"github.com/sirupsen/logrus"
@@ -59,11 +61,21 @@ func getOption() int {
 func startMonitoring() {
 	logrus.Info("Monitoring ...")
 
-	if err := engine.Execute(); err != nil {
-		logrus.WithError(err).Error("error on execute engine")
+	m := &models.Message{}
+
+	for i := 0; i < c.MonitoringQuantity; i++ {
+		if err := engine.Execute(m); err != nil {
+			logrus.WithError(err).Error("error on execute engine")
+		}
+		time.Sleep(time.Duration(c.Delay) * time.Second)
+		clear(m)
 	}
 }
 
 func showLogs() {
 	logrus.Info("Show Logs")
+}
+
+func clear(m *models.Message) {
+	m.Hosts = []models.Host{}
 }

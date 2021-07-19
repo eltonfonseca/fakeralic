@@ -7,10 +7,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func Execute() error {
+func Execute(m *models.Message) error {
 	var err error
-
-	m := &models.Message{}
 	currentHandler := factory.NewHander()
 
 	for currentHandler != nil {
