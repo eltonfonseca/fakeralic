@@ -15,6 +15,7 @@ import (
 type ReadFileHandler struct{}
 
 func (rf *ReadFileHandler) Execute(m *models.Message) (interfaces.Handler, error) {
+	logrus.Info("... Reading file ...")
 	path, _ := filepath.Abs("hosts.txt")
 	file, err := os.Open(path)
 

@@ -11,6 +11,8 @@ import (
 type TestSitesHandler struct{}
 
 func (ts *TestSitesHandler) Execute(m *models.Message) (interfaces.Handler, error) {
+	logrus.Info("... Testing hosts ...")
+
 	for index, host := range m.Hosts {
 		response, err := http.Get(host.Name)
 
